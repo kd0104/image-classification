@@ -1,0 +1,62 @@
+#IMPORTING DEPENDENCIES
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+%matplotlib inline
+
+#using pandas to read the database stored in the folder
+data = pd.read_csv('mnist.csv')
+
+data.head()
+
+#extracting data from  dataset and viewing them up close
+a = data.iloc[3,1:].values
+
+#reshaping the extracted data into a reasonable data
+a = a.reshape(28,28).astype('uint8')
+plt.imshow(a)
+
+#prepare the data
+#separating table & data value
+df_x = data.iloc[:,1:]
+df_y = data.iloc[:,0]
+
+#creating test and train sizes/batches
+x_train, x_test ,y_train,y_test = train_test_split(df_x,df_y,test_size =0.2, random_state=4)
+
+#check data
+x_train.head()
+
+#check data
+y_train.head()
+
+#call rf classifier
+rf = RandomForestClassifier(n_estimators=100)
+
+#fit the model
+rf.fit(x_train,y_train)
+
+#prediction on the test data
+pred = rf.predict(x_train)
+
+print("pred");
+
+#check predition accuracy
+s = y_test.values
+
+#calculate number od correctly predicted values=M
+count = 0
+for i in range(len(pred)):
+    if pred[i] == s[i]:
+        count = count+1
+       
+print("count")
+
+#total values that predicts code was run on=N
+print("len(pred)")
+
+#accuracy value
+M/N
+        
